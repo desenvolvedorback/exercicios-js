@@ -1,32 +1,40 @@
-const prompt = require("prompt-sync") ();
-
 /*
-Crie um algoritmo em Node JS que solicite ao usuário quatro notas. Calcule a
-média aritmética entre elas e, em seguida, exiba o resultado na tela e a sua
-menção final.
+Crie um algoritmo em Node JS que aplique um desconto sobre os produtos de
+um pedido. O algoritmo deve receber o preço de cada produto até que seja
+digitado o valor 0. Produtos com preço acima de R$ 100,00 recebem 10% de
+desconto; os demais mantêm o preço original. Ao final, exiba o valor total do
+pedido já com os descontos aplicados.
 
-Use a seguinte equação:
-Média = (N1 + N2 + N3 + N4) / 4
+Use um laço de repetição WHILE para receber os produtos e a estrutura IF e
+ELSE para aplicar o desconto:
 
-Use a seguinte lógica:
-Média < 2 → Reprovado.
-Média >= 2 e Média < 6 → Exame.
-Média >= 6 → Aprovado.
+Preço acima de R$ 100,00 → desconto de 10%
+Preço até R$ 100,00 → sem desconto
+
+Preço Final = Preço × (1 − Desconto)
 */
 
-n1 = Number(prompt("Digite a primeira nota: "))
-n2 = Number(prompt("Digite a segunda nota: "))
-n3 = Number(prompt("Digite a terceira nota: "))
-n4 = Number(prompt("Digite a quarta nota: "))
+const prompt = require("prompt-sync") ();
+let valorProduto;
+let totalPedido = 0;
+let descontoAplicado = false;
 
-op = (n1 + n2 + n3 + n4) / 4
+while (true) {
+  valorProduto = parseFloat(prompt("Digite o preço do produto (ou 0 para encerrar): "));
+  if (valorProduto === 0) {
+    break;
+  }
+  if (valorProduto > 100) {
+    totalPedido += valorProduto * 0.9;
+     descontoAplicado = true; // Aplica desconto de 10%
+  } else {
+    totalPedido += valorProduto;
+  }
+}
 
-if (op < 2) {
-    console.log("Média reprovada \n Nota: " + op)
-}
-if (op >= 2 && op < 6) {
-    console.log("Conselho de classe (Exame) \n Nota: " + op)
-}
-if (op >= 6) {
-    console.log("Média Aprovada \n Nota: " + op)
-}
+console.log(`Desconto aplicado: ${descontoAplicado ? "10%" : "0%"}`);
+console.log(`O valor total do pedido é: R$ ${totalPedido.toFixed(2)}`);
+
+
+// ? --> if (se)
+// : ---> else(senão)
